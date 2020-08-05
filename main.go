@@ -279,22 +279,22 @@ func setup() {
 			fmt.Printf("%s ### %s", key, bucketName)
 
 			// do a HeadObject request to avoid uploading the object if it already exists from a previous test run
-			// headReq := s3Client.HeadObjectRequest(&s3.HeadObjectInput{
-			// 	Bucket: aws.String(bucketName),
-			// 	Key:    aws.String(key),
-			// })
+			headReq := s3Client.HeadObjectRequest(&s3.HeadObjectInput{
+				Bucket: aws.String(bucketName),
+				Key:    aws.String(key),
+			})
 
-			// _, err := headReq.Send()
+			_, err := headReq.Send()
 
-			// // if no error, then the object exists, so skip this one
-			// if err == nil {
-			// 	continue
-			// }
+			// if no error, then the object exists, so skip this one
+			if err == nil {
+				continue
+			}
 
-			// // if other error, exit
-			// if err != nil && !strings.Contains(err.Error(), "NotFound:") {
-			// 	panic("Failed to head S3 object: " + err.Error())
-			// }
+			// if other error, exit
+			if err != nil && !strings.Contains(err.Error(), "NotFound:") {
+				panic("Failed to head S3 object: " + err.Error())
+			}
 
 			// generate empty payload
 			payload := make([]byte, objectSize)
