@@ -53,7 +53,7 @@ const maxPayload = 18
 const maxThreads = 64
 
 // default settings
-const defaultRegion = "us-west-2"
+const defaultRegion = "eu-central-1"
 const bucketNamePrefix = "s3-benchmark"
 
 // the hostname or EC2 instance id
@@ -125,8 +125,8 @@ func main() {
 func parseFlags() {
 	threadsMinArg := flag.Int("threads-min", 8, "The minimum number of threads to use when fetching objects from S3.")
 	threadsMaxArg := flag.Int("threads-max", 16, "The maximum number of threads to use when fetching objects from S3.")
-	payloadsMinArg := flag.Int("payloads-min", 1, "The minimum object size to test, with 1 = 1 KB, and every increment is a double of the previous value.")
-	payloadsMaxArg := flag.Int("payloads-max", 10, "The maximum object size to test, with 1 = 1 KB, and every increment is a double of the previous value.")
+	payloadsMinArg := flag.Int("payloads-min", 5, "The minimum object size to test, with 1 = 1 KB, and every increment is a double of the previous value.")
+	payloadsMaxArg := flag.Int("payloads-max", 16, "The maximum object size to test, with 1 = 1 KB, and every increment is a double of the previous value.")
 	samplesArg := flag.Int("samples", 1000, "The number of samples to collect for each test of a single object size and thread count.")
 	bucketNameArg := flag.String("bucket-name", "", "Cleans up all the S3 artifacts used by the benchmarks.")
 	regionArg := flag.String("region", "", "Sets the AWS region to use for the S3 bucket. Only applies if the bucket doesn't already exist.")
@@ -135,7 +135,7 @@ func parseFlags() {
 	throttlingModeArg := flag.Bool("throttling-mode", false, "Runs a continuous test to find out when EC2 network throttling kicks in.")
 	cleanupArg := flag.Bool("cleanup", false, "Cleans all the objects uploaded to S3 for this test.")
 	csvResultsArg := flag.String("upload-csv", "", "Uploads the test results to S3 as a CSV file.")
-	createBucketArg := flag.Bool("create-bucket", true, "Create the bucket")
+	createBucketArg := flag.Bool("create-bucket", false, "Create the bucket")
 	
 	// parse the arguments and set all the global variables accordingly
 	flag.Parse()
