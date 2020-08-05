@@ -563,7 +563,7 @@ func printHeader(objectSize uint64) {
 }
 
 // generates an S3 key from the sha hash of the hostname, thread index, and object size
-func generateS3Key(pref string host string, threadIndex int, payloadSize uint64) string {
+func generateS3Key(pref string, host string, threadIndex int, payloadSize uint64) string {
 	keyHash := sha1.Sum([]byte(fmt.Sprintf("%s-%03d-%012d", host, threadIndex, payloadSize)))
 	key := fmt.Sprintf("%s/%x", pref, keyHash)
 	return key
