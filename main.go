@@ -276,6 +276,7 @@ func setup() {
 
 			// generate an S3 key from the sha hash of the hostname, thread index, and object size
 			key := generateS3Key(prefix, hostname, t, objectSize)
+			fmt.Printf("Uploading %s", key)
 
 			// do a HeadObject request to avoid uploading the object if it already exists from a previous test run
 			headReq := s3Client.HeadObjectRequest(&s3.HeadObjectInput{
