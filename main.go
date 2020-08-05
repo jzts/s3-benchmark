@@ -72,6 +72,9 @@ var instanceType = getInstanceType()
 // by generating a sha hash of the hostname
 var bucketName = fmt.Sprintf("%s-%x", bucketNamePrefix, sha1.Sum([]byte(hostname)))
 
+// the prefix to write the data under 
+var prefix
+
 // the min and max object sizes to test - 1 = 1 KB, and the size doubles with every increment
 var payloadsMin int
 var payloadsMax int
